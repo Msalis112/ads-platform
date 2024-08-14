@@ -32,4 +32,5 @@ export default defineConfig({
     },
     https: {},
   },
+  base:"/ads-platform/"
 })
