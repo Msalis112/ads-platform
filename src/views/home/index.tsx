@@ -13,9 +13,7 @@ const Home = () => {
         tonConnectUI.disconnect()
     }
     useEffect(() => {
-        console.log(initunsafedata, initdata)
-        console.log(webApp)
-        webApp?.expand()
+        // webApp?.expand()
         webApp?.disableVerticalSwipes()
     }, [])
     const invite = () => {

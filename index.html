@@ -13,6 +13,11 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    if (!window.location.search) {
+      window.location.href = window.location.href + `?t=${Math.random()}`
+    } 
+  </script>
 </body>
 
 </html>
