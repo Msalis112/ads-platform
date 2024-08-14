@@ -17,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
     <TonConnectUIProvider manifestUrl={manifestUrl} actionsConfiguration={{
       twaReturnUrl: "https://t.me/orangekit_bot/OrangeShow"
     }}>
-      <BrowserRouter>
+      <BrowserRouter basename='/ads-platform/'>
         <App />
       </BrowserRouter>
     </TonConnectUIProvider>
