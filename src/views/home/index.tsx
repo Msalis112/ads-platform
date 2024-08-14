@@ -15,6 +15,8 @@ const Home = () => {
     useEffect(() => {
         console.log(initunsafedata, initdata)
         console.log(webApp)
+        webApp?.expand()
+        webApp?.disableVerticalSwipes()
     }, [])
     const invite = () => {
         const link = 'https://t.me/share/url?url=https://t.me/orangekit_bot/OrangeShow?startapp=111111111111'
