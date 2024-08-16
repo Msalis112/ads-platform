@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .my-player-height {
+        height: calc(theme('height.screen') - theme('height.16'));
+    }
+}

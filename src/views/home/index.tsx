@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
+import Loading from '@/component/Loading';
 const User = () => {
     const [slides, setSlides] = useState([{
         id: 1,
@@ -27,10 +28,10 @@ const User = () => {
         const newSlideId = slides.length + 1;
         setSlides([...slides, { id: newSlideId, type: "img", url: 'https://mt316.99img.biz/uuid/pica/73901.jpg' }]);
     };
-    return <div className='h-full bg-blue-500'>
+    return <div className='h-full'>
         <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
-            className='h-full z-0'
+            className='z-0 my-player-height'
             direction='vertical'
             onSlideChange={() => {
                 addSlide()

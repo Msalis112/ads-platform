@@ -12,22 +12,26 @@ const NavBar = () => {
         {
             key: "home",
             icon: HomeIcon,
+            name: "Home"
         },
         {
             key: "rocket",
             icon: RocketIcon,
+            name: "Rocket"
         },
         {
             key: "user",
             icon: UserIcon,
+            name: "User"
         },
     ]
-    return <div className='flex justify-between w-full px-10 py-5 select-none'>
+    return <div className='flex justify-between items-center h-16 w-full px-8 select-none bg-gray-950'>
         {
-            list.map(item => <Link to={item.key} key={item.key}> <div className={active === item.key ? 'bg-white rounded-full p-2 transition-all' : 'p-2'} onClick={() => {
+            list.map(item => <Link to={item.key} key={item.key}> <div className={active === item.key ? 'text-white' : 'text-gray-400'} onClick={() => {
                 setActive(item.key)
             }}>
-                <img src={item.icon} className='size-5 bg-blend-multiply' alt="" />
+                <span className='text-xs'>{item.name}</span>
+                {/* <img src={item.icon} className='size-5 bg-blend-multiply' alt="" /> */}
             </div></Link>)
         }
     </div>
