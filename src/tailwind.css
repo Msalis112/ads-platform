@@ -7,4 +7,8 @@
     .my-player-height {
         height: calc(theme('height.screen') - theme('height.16'));
     }
+
+    .my-nav-height {
+        height: calc(1px + theme('height.16'));
+    }
 }

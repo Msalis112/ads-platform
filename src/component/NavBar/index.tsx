@@ -25,7 +25,7 @@ const NavBar = () => {
             name: "User"
         },
     ]
-    return <div className='flex justify-between items-center h-16 w-full px-8 select-none bg-gray-950'>
+    return <div className='flex justify-between items-center w-full px-8 select-none bg-gray-950 my-nav-height'>
         {
             list.map(item => <Link to={item.key} key={item.key}> <div className={active === item.key ? 'text-white' : 'text-gray-400'} onClick={() => {
                 setActive(item.key)
