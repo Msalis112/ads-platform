@@ -1,43 +1,52 @@
-import { useTonConnectModal, useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
-import { useInitData, useWebApp } from '@vkruglikov/react-telegram-web-app'
-import { useEffect } from 'react'
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { useState, useEffect } from 'react';
+import Video from '@/component/Video';
+import Image from '@/component/Image';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css';
+const User = () => {
+    const [slides, setSlides] = useState([{
+        id: 1,
+        type: "video",
+        url: 'https://videos.pexels.com/video-files/20721021/20721021-uhd_1440_2560_30fps.mp4'
+    },
+    { id: 2, type: "video", url: 'https://videos.pexels.com/video-files/10034411/10034411-uhd_1440_2732_25fps.mp4' }
+        ,
+    { id: 3, type: "video", url: 'https://videos.pexels.com/video-files/12861296/12861296-uhd_1440_2560_60fps.mp4' }
+    ]);
+    const swiper = useSwiper()
 
-const Home = () => {
-    const { open, } = useTonConnectModal()
-    const address = useTonAddress()
-    const [tonConnectUI, _] = useTonConnectUI()
-
-    const [initunsafedata, initdata] = useInitData()
-    const webApp = useWebApp()
-    const disconnect = () => {
-        tonConnectUI.disconnect()
-    }
     useEffect(() => {
-        webApp?.expand()
-        webApp?.disableVerticalSwipes()
-    }, [])
-    const invite = () => {
-        const link = 'https://t.me/share/url?url=https://t.me/orangekit_bot/OrangeShow?startapp=111111111111'
+        swiper?.update()
+    }, [slides]);
 
-        webApp.openTelegramLink(link)
-    }
-    return <div className='h-full'>
-        <div>Open Wallet:<p className='whitespace-pre-wrap'>{address}</p></div>
-        <div>
-            运行平台：{webApp.platform}
-            运行平台：{webApp.version}
-        </div>
-        <div onClick={invite}>Invite</div>
-        参数：{JSON.stringify(initunsafedata?.start_param)}
-        <p className='whitespace-pre-wrap'>
-            {JSON.stringify(initunsafedata?.user)}
-        </p>
-        {
-            tonConnectUI.connected ? <div onClick={disconnect}>断开</div>
-                : <div onClick={open}>连接钱包</div>
-        }
-
+    const addSlide = () => {
+        const newSlideId = slides.length + 1;
+        setSlides([...slides, { id: newSlideId, type: "img", url: 'https://mt316.99img.biz/uuid/pica/73901.jpg' }]);
+    };
+    return <div className='h-full bg-blue-500'>
+        <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            className='h-full z-0'
+            direction='vertical'
+            onSlideChange={() => {
+                addSlide()
+            }}
+        >
+            {slides.map((slide) => (
+                <SwiperSlide key={slide.id} className='h-full'>
+                    {({ isActive, isNext }) => <div className='h-full bg-black'>
+                        {
+                            slide.type === 'img' ? <Image isActive={isActive} isNext={isNext} data={slide} /> : <Video isActive={isActive} isNext={isNext} data={slide} />
+                        }
+                    </div>}
+                </SwiperSlide>
+            ))}
+        </Swiper>
     </div>
 }
 
-export default Home;
+export default User;

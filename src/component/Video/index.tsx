@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-
+import React, { useEffect, useRef, useState, memo } from 'react'
+import Loading from '../Loading';
 
 interface VideoProps {
     isActive: boolean;
@@ -12,20 +12,38 @@ interface VideoProps {
 
 const Video: React.FC<VideoProps> = (props) => {
     const videoRef = useRef<HTMLVideoElement>(null)
-
+    const [loading, setLoading] = useState<boolean>(false)
     useEffect(() => {
         if (videoRef.current) {
-            videoRef.current.currentTime = 0
+            if (videoRef.current.currentTime !== 0) {
+                videoRef.current.currentTime = 0
+            }
             if (props.isActive) {
                 videoRef.current.play()
             } else {
                 videoRef.current.pause()
-
             }
+
         }
     }, [props.isActive])
 
-    return <video ref={videoRef} preload={props.isNext ? 'preload' : ''}  src={props.data.url} className='h-full w-full' />
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.onwaiting = function (e) {
+                setLoading(true)
+            }
+            videoRef.current.oncanplay = function (e) {
+                setLoading(false)
+            }
+            videoRef.current.onerror = function (e) {
+                setLoading(false)
+                console.log(props.data.id, 'onerror')
+            }
+        }
+    }, [])
+
+
+    return <Loading loading={loading}><video loop ref={videoRef} preload={props.isNext ? 'auto' : ''} src={props.data.url} className='h-full w-full' /></Loading>
 }
 
-export default Video;
+export default memo(Video);
