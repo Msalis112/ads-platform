@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 
 const NavBar = () => {
-    const [active, setActive] = useState('home')
+    const [active, setActive] = useState('user')
     const list = [
         {
             key: "user",
