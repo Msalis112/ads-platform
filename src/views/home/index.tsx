@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css';
-const User = () => {
+const Home = () => {
     const [slides, setSlides] = useState([{
         id: 1,
         type: "video",
@@ -49,4 +49,4 @@ const User = () => {
     </div>
 }
 
-export default User;
+export default Home;
