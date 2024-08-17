@@ -11,4 +11,10 @@
     .my-nav-height {
         height: calc(1px + theme('height.16'));
     }
+
+    .bg-loading {
+        background: url('./assets/loading.gif');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
 }

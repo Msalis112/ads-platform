@@ -29,8 +29,14 @@ const Video: React.FC<VideoProps> = (props) => {
 
     useEffect(() => {
         if (videoRef.current) {
-            videoRef.current.onwaiting = function (e) {
-                setLoading(true)
+            videoRef.current.onwaiting =  (e) => {
+                if (videoRef.current && videoRef.current.readyState === videoRef.current.HAVE_ENOUGH_DATA) {
+                    console.log('can play')
+                  } else {
+                    setLoading(true)
+
+                  }
+            
             }
             videoRef.current.oncanplay = function (e) {
                 setLoading(false)
