@@ -10,9 +10,9 @@ const NavBar = () => {
     const [active, setActive] = useState('home')
     const list = [
         {
-            key: "home",
-            icon: HomeIcon,
-            name: "Home"
+            key: "user",
+            icon: UserIcon,
+            name: "User"
         },
         {
             key: "rocket",
@@ -20,10 +20,11 @@ const NavBar = () => {
             name: "Rocket"
         },
         {
-            key: "user",
-            icon: UserIcon,
-            name: "User"
+            key: "home",
+            icon: HomeIcon,
+            name: "Home"
         },
+
     ]
     return <div className='flex justify-between items-center w-full px-8 select-none bg-gray-950 my-nav-height'>
         {

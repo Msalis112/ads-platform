@@ -12,44 +12,78 @@ interface VideoProps {
 
 const Video: React.FC<VideoProps> = (props) => {
     const videoRef = useRef<HTMLVideoElement>(null)
+    const videoEnd = useRef<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    useEffect(() => {
-        if (videoRef.current) {
-            if (videoRef.current.currentTime !== 0) {
-                videoRef.current.currentTime = 0
-            }
-            if (props.isActive) {
-                videoRef.current.play()
-            } else {
-                videoRef.current.pause()
-            }
 
+    function onCanPlay() {
+        if (videoEnd.current) return
+        setLoading(false)
+        console.log('oncanplay')
+    }
+
+    function onWaiting() {
+        if (videoEnd.current) return
+        setLoading(true)
+        console.log('loading...')
+    }
+
+    function onEnded() {
+        videoEnd.current = true
+        startPlay()
+    }
+
+    function startPlay() {
+        if (!videoRef.current) return
+        if (videoRef.current.currentTime > 0) {
+            videoRef.current.currentTime = 0
         }
-    }, [props.isActive])
+        videoRef.current.play()
+    }
 
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.onwaiting =  (e) => {
-                if (videoRef.current && videoRef.current.readyState === videoRef.current.HAVE_ENOUGH_DATA) {
-                    console.log('can play')
-                  } else {
-                    setLoading(true)
+    function pause() {
+        if (!videoRef.current) return
+        videoRef.current.pause()
+    }
 
-                  }
-            
-            }
-            videoRef.current.oncanplay = function (e) {
-                setLoading(false)
-            }
-            videoRef.current.onerror = function (e) {
-                setLoading(false)
-                console.log(props.data.id, 'onerror')
-            }
+    function togglePlay() {
+        if (props.isActive) {
+            startPlay()
+        } else {
+            pause()
         }
-    }, [])
+    }
+
+    function removeEvent() {
+        if (!videoRef.current) return
+        videoRef.current.onwaiting = null
+        videoRef.current.oncanplay = null
+        videoRef.current.onended = null
+        videoEnd.current = false
+    }
+
+    function videoEvent() {
+        if (!videoRef.current) return
+        videoRef.current.onwaiting = onWaiting
+        videoRef.current.oncanplay = onCanPlay
+        videoRef.current.onended = onEnded
+    }
+
+    function eventListener() {
+        if (props.isActive) {
+            videoEvent()
+        } else {
+            removeEvent()
+        }
+    }
+
+    // 播放
+    useEffect(togglePlay, [props.isActive])
+
+    // 监听事件
+    useEffect(eventListener, [props.isActive])
 
 
-    return <Loading loading={loading}><video loop ref={videoRef} preload={props.isNext ? 'auto' : ''} src={props.data.url} className='h-full w-full' /></Loading>
+    return <Loading loading={loading}><video ref={videoRef} preload={props.isNext ? 'auto' : 'none'} src={props.data.url} className='h-full w-full' /></Loading>
 }
 
 export default memo(Video);
