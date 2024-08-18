@@ -27,9 +27,9 @@ const User = () => {
     return <div className='h-full bg-full-home'>
         <div className='p-5 flex justify-between'>
             <Avatar name={username} />
-            <div>
-                <Setting />
+            <div className='flex space-x-1'>
                 <Wallet />
+                <Setting />
             </div>
         </div>
         <div>Open Wallet:<p className='whitespace-pre-wrap'>{address}</p></div>

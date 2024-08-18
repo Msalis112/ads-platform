@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-
+import ReactDOM from 'react-dom';
 interface DrawerProps {
     open?: boolean;
     placement?: 'top' | 'bottom';
@@ -36,7 +36,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
             }, 0)
         }
     }, [open])
-    return <div className={`fixed left-0 top-0 h-full w-full  z-50 ${open ? '' : 'hidden'}`}>
+    return ReactDOM.createPortal(<div className={`fixed left-0 top-0 h-full w-full  z-50 ${open ? '' : 'hidden'}`}>
         <div className={`absolute left-0 top-0 h-full w-full bg-black/60 ${showContent ? '' : 'hidden'}`} onClick={handleClose}></div>
         <div
             onTransitionEnd={() => {
@@ -58,7 +58,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
             <div className='close absolute right-5 top-3' onClick={handleClose}>X</div>
             {children}
         </div>
-    </div>
+    </div>, document.body)
 }
 
 
