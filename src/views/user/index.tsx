@@ -3,6 +3,8 @@ import Avatar from '@/component/Avatar'
 import { useInitData, useWebApp } from '@vkruglikov/react-telegram-web-app'
 import useBalance from '@/hooks/useBalance'
 import Wallet from '@/component/Wallet'
+import Setting from '@/component/Setting'
+import { useMemo } from 'react'
 
 const User = () => {
     const { balance, address } = useBalance()
@@ -18,11 +20,20 @@ const User = () => {
         webApp.openTelegramLink(link)
     }
 
+    const username = useMemo(() => {
+        return initunsafedata?.user?.first_name + ' ' + initunsafedata?.user?.last_name
+    }, [initunsafedata])
+
     return <div className='h-full bg-full-home'>
-        <div className='p-5 flex justify-between'><Avatar /> <Wallet /></div>
+        <div className='p-5 flex justify-between'>
+            <Avatar name={username} />
+            <div>
+                <Setting />
+                <Wallet />
+            </div>
+        </div>
         <div>Open Wallet:<p className='whitespace-pre-wrap'>{address}</p></div>
         <div>余额：{balance}</div>
-        <div>{initunsafedata?.user?.first_name} {initunsafedata?.user?.last_name}</div>
         <div onClick={invite}>Invite</div>
         参数：{JSON.stringify(initunsafedata?.start_param)}
         {
