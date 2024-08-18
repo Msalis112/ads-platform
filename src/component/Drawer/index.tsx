@@ -21,6 +21,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
         top: `transition-[top] rounded-b-3xl border-b-2 border-b-sky-500`,
         bottom: `transition-[bottom] rounded-t-3xl border-t-2 border-t-sky-500`
     }
+
     const transitionProperty = {
         enter_top: 'top-0',
         leave_top: `-top-full`,
@@ -48,8 +49,8 @@ const Drawer: React.FC<DrawerProps> = (props) => {
                 duration-200
                 bg-gray-800
                 p-5
-                shadow-2xl
-                shadow-sky-300
+                shadow-[0_0_30px_0_rgba(0,0,0,0.3)]
+                shadow-sky-400
                 ${baseClass[placement]}
                 ${showContent ? transitionProperty[`enter_${placement}`] : transitionProperty[`leave_${placement}`]}
              `

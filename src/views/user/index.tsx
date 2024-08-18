@@ -20,13 +20,9 @@ const User = () => {
         webApp.openTelegramLink(link)
     }
 
-    const username = useMemo(() => {
-        return initunsafedata?.user?.first_name + ' ' + initunsafedata?.user?.last_name
-    }, [initunsafedata])
-
     return <div className='h-full bg-full-home'>
         <div className='p-5 flex justify-between'>
-            <Avatar name={username} />
+            <Avatar name={initunsafedata?.user?.first_name} />
             <div className='flex space-x-1'>
                 <Wallet />
                 <Setting />
