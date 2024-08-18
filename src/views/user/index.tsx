@@ -1,42 +1,34 @@
-import { useTonConnectModal, useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
+import { useTonConnectModal, useTonConnectUI } from '@tonconnect/ui-react'
+import Avatar from '@/component/Avatar'
 import { useInitData, useWebApp } from '@vkruglikov/react-telegram-web-app'
-import { useEffect } from 'react'
+import useBalance from '@/hooks/useBalance'
+import Wallet from '@/component/Wallet'
 
 const User = () => {
+    const { balance, address } = useBalance()
     const { open, } = useTonConnectModal()
-    const address = useTonAddress()
     const [tonConnectUI, _] = useTonConnectUI()
-
-    const [initunsafedata, initdata] = useInitData()
+    const [initunsafedata] = useInitData()
     const webApp = useWebApp()
     const disconnect = () => {
         tonConnectUI.disconnect()
     }
-    useEffect(() => {
-        webApp?.expand()
-        webApp?.disableVerticalSwipes()
-    }, [])
     const invite = () => {
         const link = 'https://t.me/share/url?url=https://t.me/orangekit_bot/OrangeShow?startapp=111111111111'
-
         webApp.openTelegramLink(link)
     }
-    return <div className='h-full'>
+
+    return <div className='h-full bg-full-home'>
+        <div className='p-5 flex justify-between'><Avatar /> <Wallet /></div>
         <div>Open Wallet:<p className='whitespace-pre-wrap'>{address}</p></div>
-        <div>
-            运行平台：{webApp.platform}
-            运行平台：{webApp.version}
-        </div>
+        <div>余额：{balance}</div>
+        <div>{initunsafedata?.user?.first_name} {initunsafedata?.user?.last_name}</div>
         <div onClick={invite}>Invite</div>
         参数：{JSON.stringify(initunsafedata?.start_param)}
-        <p className='whitespace-pre-wrap'>
-            {JSON.stringify(initunsafedata?.user)}
-        </p>
         {
             tonConnectUI.connected ? <div onClick={disconnect}>断开</div>
                 : <div onClick={open}>连接钱包</div>
         }
-
     </div>
 }
 
