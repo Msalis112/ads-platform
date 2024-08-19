@@ -4,7 +4,10 @@ import { useInitData, useWebApp } from '@vkruglikov/react-telegram-web-app'
 import useBalance from '@/hooks/useBalance'
 import Wallet from '@/component/Wallet'
 import Setting from '@/component/Setting'
-import { useMemo } from 'react'
+import CalcInfo from './CalcInfo';
+
+import TotalCoin from './TotalCoin'
+import Level from './Level'
 
 const User = () => {
     const { balance, address } = useBalance()
@@ -28,6 +31,9 @@ const User = () => {
                 <Setting />
             </div>
         </div>
+        <CalcInfo />
+        <TotalCoin />
+        <Level />
         <div>Open Wallet:<p className='whitespace-pre-wrap'>{address}</p></div>
         <div>余额：{balance}</div>
         <div onClick={invite}>Invite</div>
