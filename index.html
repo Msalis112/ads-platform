@@ -12,11 +12,19 @@
 
   <title>Vite + React + TS</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src='//niphaumeenses.net/vignette.min.js' data-zone='8712034' data-sdk='show_8712034'></script>
 </head>
 
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  
+show_8712034().then(() => {
+    // You need to add your user reward function here, which will be executed after the user watches the ad.
+    // For more details, please refer to the detailed instructions.
+    alert('You have seen ad ad!');
+})
+        
 </body>
 
 </html>
